@@ -1,0 +1,27 @@
+class Solution(object):
+    def totalHammingDistance(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums)==0:
+            return 0
+        j=max(nums)
+        n=len(nums)
+        l=[]
+        k=len(str(bin(j)))-1
+        #print k
+        for i in xrange(k):
+            l.append(0)
+        for i in xrange(k):
+            for j in nums:
+                #print (j>>i)&1
+                l[i]=l[i]+((j>>i)&1)
+                #print "li"
+                #print i
+                #print l[i]
+                
+        print l
+        for i in xrange(k):
+            l[i]=l[i]*(n-l[i])
+        return sum(l)
