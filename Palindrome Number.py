@@ -9,14 +9,17 @@ class Solution(object):
         if x<0:
             return False
         i=0;
-        while x>=10**i:
+        a=1;
+        while x>=a:
+            a=a*10
             i=i+1
         #print i
         
         
         i=i-1
+        a=int(10**i)
         while True:
-            a=int(10**i)
+            
             #print "a",a
             #print "x",x
             if x/a!=x%10:
@@ -28,4 +31,5 @@ class Solution(object):
             #print "i",i
             if i<0:
                 break
+            a=a/100
         return True
