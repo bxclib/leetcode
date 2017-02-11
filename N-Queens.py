@@ -10,21 +10,23 @@ class Solution(object):
         self.putQueens(0,square,l)
         return l
     def notDanger(self,column,square):
-        print square,column
+        #print square,column
         for s,i in enumerate(square):
             
             if i[column]=="Q":
                 return False
-            
-            if column+len(square)-1-s>=0 and column+len(square)-1-s<self.n:
+            f=column+len(square)-s
+            if f>=0 and f<self.n:
                 #print "###"
                 #print s,column+len(square)-1-s
                 #print len(square)-1,column
-                if i[column+len(square)-1-s]=="Q":
+                if i[f]=="Q":
                     return False
-            if column-len(square)+1+s>=0 and column-len(square)+1+s<self.n:
-                if i[column-len(square)+1+s]=="Q":
+            f=column-len(square)+s
+            if f>=0 and f<self.n:
+                if i[f]=="Q":
                     return False
+        #print square,column
         return True
     def putQueens(self,row,square,l):
         if row==self.n:
