@@ -9,18 +9,23 @@ class Solution(object):
             return -1
 
         needle_next=[]
-        needle_next.append(-1)
+        needle_next.append(0)
+        needle_next.append(1)
+
         
         
-        for i in xrange(1,len(needle)):
+        for i in range(2,len(needle)):
             j=needle_next[i-1]
-            while j>=0 and needle[j+1]!=needle[i]:
+            j=j-1        #change to python subscript convention
+            while j>=0 and needle[j]!=needle[i-1]:
                 j=needle_next[j]
-            if needle[j+1]==needle[i]:
-                needle_next.append(j+1)
+                j=j-1   #change to python subscript convention
+        
+            if needle[j]==needle[i-1]:
+                needle_next.append(j+1+1)     #change to KMP subscript convention
                 #print "append1"
             else:
-                needle_next.append(-1)
+                needle_next.append(1)
                 #print "append2"
         #print needle,needle_next
         l1=len(needle)
@@ -33,13 +38,13 @@ class Solution(object):
                 return i-l1
             if i==l2:
                 return -1
-            if haystack[i]!=needle[j]:
+            if haystack[i]!=needle[j] and j!=-1:   #  0 in KMP convention -1 in python convention
                 
-                if j==0:
-                    i=i+1
-                else:
-                    j=needle_next[j-1]+1
-                #print "!"
+                j=needle_next[j]
+                j=j-1
+                
+                
+                
                 
             else:
                 i=i+1
