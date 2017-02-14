@@ -28,6 +28,9 @@ class Solution(object):
                 needle_next.append(1)
                 #print "append2"
         #print needle,needle_next
+        for i in range(1,len(needle)):
+            if needle[i]==needle[i-1]:
+                needle_next[i]=needle_next[i-1]
         l1=len(needle)
         l2=len(haystack)
         i=0
