@@ -9,7 +9,7 @@ class Solution(object):
         result=[]
         while l!=[]:
             a=l.pop()
-            if len(a)==3:
+            if len(a)==len(nums):
                 result.append(a)
             else:
                 for i in nums:
