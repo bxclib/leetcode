@@ -1,0 +1,68 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+from copy import * 
+class Solution(object):
+    def sortedArrayToBST(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: TreeNode
+        """
+        if nums==[]:
+            return None
+        head=TreeNode(nums[0])
+        head.height=0
+        for i in nums[1:]:
+            self.putNode(head,i)
+        return head
+    def height(self,node):
+        a=node.left is None?-1:node.left.height
+        b=node.right is None?-1:node.right.height
+        return max(a,b)+1
+    def putNode(self,node,num):
+        if node.val==num:
+            return None
+        if node.val>num:
+            if node.left is None:
+                node.left=TreeNode(num)
+                node.left.height=0
+                node.height=self.height(node)
+                return node.height
+            else:
+                h=self.putNode(node.left,num)
+                node.height=h
+                node.balance=node.left.height-node.right.height
+                if(2==node.balance)
+                    if(node.left.balance==1)
+                        SingRotateLeft(node)
+                    else
+                        DoubleRotateLeft(node)
+                return nodeIn
+        if node.val<num:
+            if node.right is None:
+                node.right=TreeNode(num)
+                node.right.height=0
+                node.height=self.height(node)
+                return node.height
+            else:
+                h=self.putNode(node.right,num)
+                node.height=h
+                node.balance=node.left.height-node.right.height
+                if(-2==node.balance)
+                    if(node.right.balance==-1)
+                        SingRotateRight(node)
+                    else
+                        DoubleRotateRight(node)
+                return nodeIn
+    def SingRotateLeft(self,node):
+        node2=copy(node)
+        node2.left=node.left.right
+        node.val=node.left.val
+        node.left=node.left.left
+        node.right=node2
+        
+        
+        
