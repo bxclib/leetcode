@@ -8,14 +8,14 @@ class Solution(object):
         nums.append(nums[0])
         self.nums=nums
         self.createHeap(self.nums)
-        print self.nums
-        res=[]
-        while len(res)!=k:
-            res.append(self.nums[1])
+        #print self.nums
+        i=0
+        while i!=k:
             self.nums[1],self.nums[len(self.nums)-1]=self.nums[len(self.nums)-1],self.nums[1]
-            self.nums.pop()
+            res=self.nums.pop()
             self.changeNum(1)
-        return res[len(res)-1]
+            i=i+1
+        return res
     def createHeap(self,nums):
         k=int(0.5*(len(self.nums)-1))
         while k>0:
@@ -35,5 +35,3 @@ class Solution(object):
                 if self.nums[i]<self.nums[2*i+1]:
                     self.nums[i],self.nums[2*i+1]=self.nums[2*i+1],self.nums[i]
                     self.changeNum(2*i+1)
- 
-        
