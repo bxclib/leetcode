@@ -45,10 +45,10 @@ class Solution(object):
                 #print node.val,node.balance,"nodebalance",node.height
                 if 2==node.balance:
                     if node.left.balance==1:
-                        print "LL"
+                        #print "LL"
                         self.SingRotateLeft(node)
                     else:
-                        print "LR"
+                        #print "LR"
                         self.DoubleRotateLeft(node)
                 return node.height
         if node.val<num:
@@ -65,10 +65,10 @@ class Solution(object):
                 #print node.val,node.balance,"nodebalance",node.height
                 if -2==node.balance:
                     if node.right.balance==-1:
-                        print "RR"
+                        #print "RR"
                         self.SingRotateRight(node)
                     else:
-                        print "RL"
+                        #print "RL"
                         self.DoubleRotateRight(node)
                 return node.height
     def SingRotateLeft(self,node):
