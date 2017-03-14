@@ -1,0 +1,90 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+import math
+class Solution(object):
+    def sortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        #self.showList(head)
+        if head is None or head.next is None:
+            return head
+
+        fast=head
+        slow=head
+        i=0
+        while fast is not None:
+            fast=fast.next
+            if i%2==0:
+                slow=slow.next
+            i=i+1
+        #print head.val,slow.val,i
+        ll1=int(math.ceil(0.5*i))
+        res,tail=self.sort_List(head,slow,ll1,i-ll1)
+        return res
+    def sort_List(self,head,middle,l1,l2):
+        if head==middle:
+            return head,head
+        if head.next==middle is None:
+            if head.val>head.next.val:
+                self.swapNode(head)
+            return head,head.next
+        
+        m1=head
+        for i in range(int(0.5*l1)):
+            m1=m1.next
+        m2=middle
+        for i in range(int(0.5*l2)):
+            m2=m2.next
+        #print head.val,m1.val,l1
+        #print middle.val,m2.val,l2
+        h1,t1=self.sort_List(head,m1,int(0.5*l1),l1-int(0.5*l1))
+        h2,t2=self.sort_List(middle,m2,int(0.5*l2),l2-int(0.5*l2))
+        t1.next=None
+        t2.next=None
+        h,t=self.mergeList(h1,h2)
+        #self.showList(h)
+        return h,t
+    def mergeList(self,h1,h2):
+        if h1.val<h2.val:
+            head=h1
+            a=h1.next
+            b=h2
+        else:
+            head=h2
+            a=h1
+            b=h2.next
+        headtemp=head
+        while (a is not None) or (b is not None):
+            if a is None:
+                headtemp.next=b
+                while headtemp.next is not None:
+                    headtemp=headtemp.next
+                break
+            if b is None:
+                headtemp.next=a
+                while headtemp.next is not None:
+                    headtemp=headtemp.next
+                break
+            if a.val<b.val:
+                headtemp.next=a
+                headtemp=a
+                a=a.next
+            else:
+                headtemp.next=b
+                headtemp=b
+                b=b.next
+        return head,headtemp         
+                
+    '''def showList(self,head):
+        a=[]
+        while head is not None:
+            a.append(head.val)
+            head=head.next
+        print a'''
+    def swapNode(self,a):
+        a.val,a.next.val=a.next.val,a.val
