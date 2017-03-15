@@ -1,0 +1,111 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def insertionSortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head is None:
+            return head
+        #self.head=head
+        last=None
+        headtemp=head
+        while headtemp is not None:
+            headtemp.last=last
+            last=headtemp
+            headtemp=headtemp.next
+        #print head.val,last.val
+        head,tail=self.fastSort(head,last)
+        return head
+    def fastSort(self,head,tail):
+        #print head,tail
+        headslow=head
+        headfast=head
+        while headfast  is not None and headfast.next is not None:
+            headslow=head.next
+            headfast=headfast.next.next
+        self.swapNode(head,headslow)
+        if head is None:
+            return tail,tail
+        if tail is None:
+            return head,head
+        if head==tail:
+            return head,tail
+        #print head.next.val
+        #print tail.val
+        '''if head.next==tail:
+            if head.val>tail.val:
+                self.swapNode(head,tail)
+            #print "head.next==tail"
+            return head,tail'''
+        
+        headtemp=head
+        tailtemp=tail
+        while True:
+            while tailtemp.val>=head.val:
+                tailtemp=tailtemp.last
+                if tailtemp==headtemp:
+                    self.swapNode(head,headtemp)
+                    break
+            if headtemp==tailtemp:
+                break
+            while headtemp.val<=head.val:
+                headtemp=headtemp.next
+                if tailtemp==headtemp:
+                    self.swapNode(head,headtemp)
+                    break
+            if headtemp==tailtemp:
+                break
+            else:
+                self.swapNode(headtemp,tailtemp)
+        #print "okay"
+        #print head.val,headtemp.val,tail.val
+        #print headtemp.val
+        #self.showList(self.head)
+        if headtemp.last is not None:
+            headtemp.last.next=None
+            h1,t1=self.fastSort(head,headtemp.last)
+        else:
+            h1=None
+            t1=None
+        if headtemp.next is not None:
+            headtemp.next.last=None
+            h2,t2=self.fastSort(tailtemp.next,tail)
+        else:
+            h2=None
+            t2=None
+        h,t=self.concatList(h1,t1,headtemp,h2,t2)
+        #self.showList(self.head)
+        return h,t
+    def concatList(self,h1,t1,m,h2,t2):
+        if t1 is None:
+            t1=h1
+        if h2 is None:
+            h2=t2
+        if t1 is not None:
+            t1.next=m
+        m.last=t1
+        m.next=h2
+        if h2 is not None:
+            h2.last=m
+        a=h1
+        b=t2
+        if m.last is None:
+            a=m
+        if m.next is None:
+            b=m
+        return a,b
+            
+    def showList(self,head):
+        a=[]
+        while head is not None:
+            a.append(head.val)
+            head=head.next
+        print a 
+    def swapNode(self,a,b):
+        a.val,b.val=b.val,a.val 
